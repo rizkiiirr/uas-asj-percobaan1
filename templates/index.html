@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Pemesanan Tiket Wahana Hiburan</title>
+    <style> /* CSS Sederhana */
+        body { font-family: sans-serif; margin: 2em; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        form { margin-top: 2em; }
+    </style>
+</head>
+<body>
+    <h1>Daftar Tiket Wahana</h1>
+    <table>
+        <tr>
+            <th>ID</th><th>Nama Tiket</th><th>Harga</th><th>Stok</th><th>Aksi</th>
+        </tr>
+        {% for ticket in tickets %}
+        <tr>
+            <td>{{ ticket.id }}</td>
+            <td>{{ ticket.nama_tiket }}</td>
+            <td>{{ ticket.harga }}</td>
+            <td>{{ ticket.stok }}</td>
+            <td>
+                <a href="{{ url_for('edit_ticket_view', id=ticket.id) }}">Edit</a>
+                <form action="{{ url_for('delete_ticket', id=ticket.id) }}" method="post" style="display:inline;">
+                    <button type="submit">Hapus</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Tambah Tiket Baru</h2>
+    <form action="{{ url_for('add_ticket') }}" method="post">
+        <input type="text" name="nama_tiket" placeholder="Nama Tiket" required>
+        <input type="number" name="harga" placeholder="Harga" required>
+        <input type="number" name="stok" placeholder="Stok" required>
+        <button type="submit">Tambah</button>
+    </form>
+</body>
+</html>

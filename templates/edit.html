@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><title>Edit Tiket</title></head>
+<body>
+    <h1>Edit Tiket: {{ ticket.nama_tiket }}</h1>
+    <form action="{{ url_for('update_ticket', id=ticket.id) }}" method="post">
+        <input type="text" name="nama_tiket" value="{{ ticket.nama_tiket }}" required>
+        <input type="number" name="harga" value="{{ ticket.harga }}" required>
+        <input type="number" name="stok" value="{{ ticket.stok }}" required>
+        <button type="submit">Update</button>
+    </form>
+    <a href="{{ url_for('index') }}">Batal</a>
+</body>
+</html>

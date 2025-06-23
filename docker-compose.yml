@@ -1,0 +1,54 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  # Service untuk aplikasi web Python/Flask
+  webapp:
+    build: .
+    ports:
+      - "5001:5000" # Map port 5001 di host ke port 5000 di container
+    volumes:
+      # Mount kode lokal ke container untuk live-reloading
+      # Syarat 6: Edit kode langsung terlihat tanpa rebuild image
+      - .:/app
+    
+    environment:
+      - FLASK_DEBUG=1 
+
+    env_file:
+      # Memuat variabel dari file .env
+      # Syarat 7: Konfigurasi privasi via .env
+      - .env
+    depends_on:
+      - db # Pastikan service 'db' berjalan sebelum 'webapp'
+
+  # Service untuk database MySQL
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      # Volume ini memastikan data database tetap ada meskipun container dimatikan/dihapus
+      # Syarat 4: Database masih jalan saat container web dirusak 
+      - db-data:/var/lib/mysql
+
+  # Service untuk phpMyAdmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      # Menghubungkan phpMyAdmin ke service 'db' menggunakan service name
+      # Syarat 5: Terhubung tanpa IP, lewat service name
+      PMA_HOST: db
+    depends_on:
+      - db
+
+volumes:
+  # Mendefinisikan named volume untuk persistensi data
+  db-data:
