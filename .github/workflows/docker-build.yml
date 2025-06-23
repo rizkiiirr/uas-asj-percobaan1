@@ -24,4 +24,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/uas-asj-2025:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/uas-asj-percobaan1:latest
