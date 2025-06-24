@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><title>Edit Tiket</title></head>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Edit Tiket</title>
+</head>
 <body>
     <h1>Edit Tiket: {{ ticket.nama_tiket }}</h1>
     <form action="{{ url_for('update_ticket', id=ticket.id) }}" method="post">
