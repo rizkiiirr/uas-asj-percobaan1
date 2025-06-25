@@ -4,7 +4,7 @@ services:
   webapp:
     build: .
     ports:
-      - "5001:5000"
+      - "5025:5000"
     volumes:
       - .:/app
 
@@ -30,7 +30,7 @@ services:
     image: phpmyadmin/phpmyadmin
     restart: always
     ports:
-      - "8081:80"
+      - "8025:80"
     environment:
       PMA_HOST: db
     depends_on:

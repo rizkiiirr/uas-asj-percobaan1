@@ -30,7 +30,7 @@ def index():
     f2p_games = cursor.fetchall()
     cursor.close()
     conn.close()
-    return render_template('index.html', games=f2p_games)
+    return render_template('halamanUtama.html', games=f2p_games)
 
 @app.route('/add', methods=['POST'])
 def add_game():
@@ -54,7 +54,7 @@ def edit_game(id):
     game = cursor.fetchone()
     cursor.close()
     conn.close()
-    return render_template('edit.html', game=game)
+    return render_template('halamanEdit.html', game=game)
 
 @app.route('/update/<int:id>', methods=['POST'])
 def update_game(id):
