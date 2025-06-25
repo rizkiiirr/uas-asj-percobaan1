@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <title>Edit Tiket</title>
+    <title>Edit Game</title>
 </head>
 <body>
-    <h1>Edit Tiket: {{ ticket.nama_tiket }}</h1>
-    <form action="{{ url_for('update_ticket', id=ticket.id) }}" method="post">
-        <input type="text" name="nama_tiket" value="{{ ticket.nama_tiket }}" required>
-        <input type="number" name="harga" value="{{ ticket.harga }}" required>
-        <input type="number" name="stok" value="{{ ticket.stok }}" required>
-        <button type="submit">Update</button>
+    <h1>Edit Game: {{ game.game }}</h1>
+    <form action="{{ url_for('update_game', id=game.id) }}" method="post">
+        <input type="text" name="game" value="{{ game.game }}" required>
+        <input type="text" name="pengembang" value="{{ game.pengembang }}" required>
+        <input type="text" name="konten_dewasa" value="{{ game.konten_dewasa }}" required>
+        <a href="{{ url_for('index') }}" class="btn btn-batal">Batal</a>
+        <button type="submit" class="btn btn-update">Update</button>
     </form>
-    <a href="{{ url_for('index') }}">Batal</a>
 </body>
 </html>

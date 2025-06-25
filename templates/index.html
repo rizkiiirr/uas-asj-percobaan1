@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <title>Pemesanan Tiket Wahana Hiburan</title>
+    <title>Game F2P</title>
     <style> /* CSS Sederhana */
         body { font-family: sans-serif; margin: 2em; }
         table { width: 100%; border-collapse: collapse; }
@@ -11,33 +11,37 @@
     </style>
 </head>
 <body>
-    <h1>Daftar Tiket Wahana</h1>
+    <h1>Daftar Game Free-to-Play</h1>
     <table>
         <tr>
-            <th>ID</th><th>Nama Tiket</th><th>Harga</th><th>Stok</th><th>Aksi</th>
+            <th>ID</th>
+            <th>Game</th>
+            <th>Pengembang</th>
+            <th>Konten_Dewasa</th>
+            <th>Opsi Pengelolaan</th>
         </tr>
-        {% for ticket in tickets %}
+        {% for game in games %}
         <tr>
-            <td>{{ ticket.id }}</td>
-            <td>{{ ticket.nama_tiket }}</td>
-            <td>{{ ticket.harga }}</td>
-            <td>{{ ticket.stok }}</td>
+            <td>{{ game.id }}</td>
+            <td>{{ game.game }}</td>
+            <td>{{ game.pengembang }}</td>
+            <td>{{ game.konten_dewasa }}</td>
             <td>
-                <a href="{{ url_for('edit_ticket_view', id=ticket.id) }}">Edit</a>
-                <form action="{{ url_for('delete_ticket', id=ticket.id) }}" method="post" style="display:inline;">
-                    <button type="submit">Hapus</button>
+                <a href="{{ url_for('edit_game', id=game.id) }}" class="btn btn-edit">Edit</a>
+                <form action="{{ url_for('delete_game', id=game.id) }}" method="post" style="display:inline; margin:0; padding:0; box-shadow:none; background: none; border: none;">
+                    <button type="submit" class="btn btn-hapus">Hapus</button>
                 </form>
             </td>
         </tr>
         {% endfor %}
     </table>
 
-    <h2>Tambah Tiket Baru</h2>
-    <form action="{{ url_for('add_ticket') }}" method="post">
-        <input type="text" name="nama_tiket" placeholder="Nama Tiket" required>
-        <input type="number" name="harga" placeholder="Harga" required>
-        <input type="number" name="stok" placeholder="Stok" required>
-        <button type="submit">Tambah</button>
+    <h2>Tambah Game Baru</h2>
+    <form action="{{ url_for('add_game') }}" method="post">
+        <input type="text" name="game" placeholder="Game" required>
+        <input type="text" name="pengembang" placeholder="Pengembang" required>
+        <input type="text" name="konten_dewasa" placeholder="Konten Dewasa" required>
+        <button type="submit" class="btn btn-tambah">Tambah Game</button>
     </form>
 </body>
 </html>

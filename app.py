@@ -35,56 +35,56 @@ def get_db_connection():
 def index():
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM tickets")
-    tickets = cursor.fetchall()
+    cursor.execute("SELECT * FROM f2p_games")
+    f2p_games = cursor.fetchall()
     cursor.close()
     conn.close()
-    return render_template('index.html', tickets=tickets)
+    return render_template('index.html', games=f2p_games)
 
 @app.route('/add', methods=['POST'])
-def add_ticket():
-    nama_tiket = request.form['nama_tiket']
-    harga = request.form['harga']
-    stok = request.form['stok']
+def add_game():
+    game = request.form['game']
+    pengembang = request.form['pengembang']
+    konten_dewasa = request.form['konten_dewasa']
 
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO tickets (nama_tiket, harga, stok) VALUES (%s, %s, %s)", (nama_tiket, harga, stok))
+    cursor.execute("INSERT INTO f2p_games (game, pengembang, konten_dewasa) VALUES (%s, %s, %s)", (game, pengembang, konten_dewasa))
     conn.commit()
     cursor.close()
     conn.close()
     return redirect(url_for('index'))
 
 @app.route('/edit/<int:id>')
-def edit_ticket_view(id):
+def edit_game(id):
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM tickets WHERE id = %s", (id,))
-    ticket = cursor.fetchone()
+    cursor.execute("SELECT * FROM f2p_games WHERE id = %s", (id,))
+    game = cursor.fetchone()
     cursor.close()
     conn.close()
-    return render_template('edit.html', ticket=ticket)
+    return render_template('edit.html', game=game)
 
 @app.route('/update/<int:id>', methods=['POST'])
-def update_ticket(id):
-    nama_tiket = request.form['nama_tiket']
-    harga = request.form['harga']
-    stok = request.form['stok']
+def update_game(id):
+    game = request.form['game']
+    pengembang = request.form['pengembang']
+    konten_dewasa = request.form['konten_dewasa']
 
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("UPDATE tickets SET nama_tiket = %s, harga = %s, stok = %s WHERE id = %s",
-                   (nama_tiket, harga, stok, id))
+    cursor.execute("UPDATE f2p_games SET game = %s, pengembang = %s, konten_dewasa = %s WHERE id = %s",
+                   (game, pengembang, konten_dewasa, id))
     conn.commit()
     cursor.close()
     conn.close()
     return redirect(url_for('index'))
 
 @app.route('/delete/<int:id>', methods=['POST'])
-def delete_ticket(id):
+def delete_game(id):
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("DELETE FROM tickets WHERE id = %s", (id,))
+    cursor.execute("DELETE FROM f2p_games WHERE id = %s", (id,))
     conn.commit()
     cursor.close()
     conn.close()
