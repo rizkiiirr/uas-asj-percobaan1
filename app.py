@@ -1,16 +1,12 @@
-# app.py
 import os
 import mysql.connector
 from flask import Flask, render_template, request, redirect, url_for
 from dotenv import load_dotenv
 
-load_dotenv() # Memuat variabel dari file .env
+load_dotenv() 
 
 app = Flask(__name__)
 
-# --- KONEKSI DATABASE ---
-# Mengambil konfigurasi database dari environment variables
-# Ini memenuhi Syarat 7: Tidak menumpuk data privasi di docker-compose.yml
 def get_db_connection():
     try:
         conn = mysql.connector.connect(
@@ -22,14 +18,9 @@ def get_db_connection():
         return conn
     except mysql.connector.Error as err:
         print(f"Error: {err}")
-        # Coba lagi setelah beberapa saat jika koneksi gagal (misal: database belum siap)
         import time
         time.sleep(5)
         return get_db_connection()
-
-
-# --- RUTE APLIKASI (CRUD) ---
-# Syarat 1 & 3: Menerapkan CRUD dan terhubung ke database 
 
 @app.route('/')
 def index():
@@ -91,5 +82,4 @@ def delete_game(id):
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
-    # Menjalankan aplikasi dengan host 0.0.0.0 agar bisa diakses dari luar container
     app.run(host='0.0.0.0', port=5000, debug=True)

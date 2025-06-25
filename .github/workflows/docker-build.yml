@@ -1,10 +1,8 @@
-# .github/workflows/docker-build.yml
 name: CI/CD Docker Build and Push
 
-# Syarat 9: Proses CI/CD untuk build image dari repo Git
 on:
   push:
-    branches: [ "main" ] # Jalankan workflow setiap ada push ke branch main
+    branches: [ "main" ] 
 
 jobs:
   build:
